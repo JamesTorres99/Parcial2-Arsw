@@ -22,6 +22,5 @@ public class HttpConnection {
                     .asString();
 			System.out.println(response);
 			return new JSONObject(response.getBody());
-	}
-	
+	}	
 }

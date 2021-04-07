@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import edu.eci.arsw.weathermap.cache.WeatherMapCache;
+import edu.eci.arsw.weathermap.connection.Connection;
 import edu.eci.arsw.weathermap.connection.HttpConnection;
 import edu.eci.arsw.weathermap.model.Ciudad;
 import edu.eci.arsw.weathermap.model.Localidad;
@@ -15,10 +16,10 @@ import edu.eci.arsw.weathermap.model.MainData;
 import edu.eci.arsw.weathermap.model.Weather;
 
 @Service
-public class WeatherMapService {
+public class WeatherMapService implements WeatherService{
 	
 	@Autowired
-	HttpConnection httpConnection;
+	Connection httpConnection;
 	
 	@Autowired
 	WeatherMapCache weatherMapCache;

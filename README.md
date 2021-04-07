@@ -109,3 +109,7 @@ document.getElementById("demo").innerHTML = "name: " + obj.name + ", age: " + ob
 
 * Código de página con Mapa embebido [(Ver archivo)](index.html)
     
+
+url del git 
+
+https://github.com/JamesTorres99/Parcial2-Arsw.git
