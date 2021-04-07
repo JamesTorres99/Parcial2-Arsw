@@ -25,9 +25,9 @@ public class cache implements WeatherMapCache {
 	        });
 	        cleanerThread.setDaemon(true);
 	        cleanerThread.start();
-	    }
+	    } 
 
-
+	    @Override
 	    public void add(String key, Object value, long periodInMillis) {
 	        if (key == null) {
 	            return;

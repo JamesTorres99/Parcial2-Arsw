@@ -1,63 +1,60 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <title>Parcial</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-		<script src="/webjars/jquery/jquery.min.js"></script>
-        <script src="/webjars/sockjs-client/sockjs.min.js"></script>
-        <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-       
-		<script src="./app.js"></script>
-        <script async defer
-            src="https://maps.googleapis.com/maps/api/js?language=en"
-            type="text/javascript">
-        </script>
-    </head>
 
+<head>
+    <title>Parcial</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     
-    <body>
-		<div class="container">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
-    <div class="row" style="width: 50%; margin: auto;text-align: center">
-        <div class="col" >
-            <form class="form-inline" style="width: 50%; margin: auto;text-align: center">
-                <input type="text" id="cityName" placeholder="Ciudad">
-                <button type="button" onclick="app.getWeather($('#cityName').val())"
-                        class="btn btn-primary">Buscar
-                </button>
-            </form>
+    <script src="cliente.js"></script>
+
+    <script src="app.js"></script>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?language=en" type="text/javascript"></script>
+</head>
+
+<body onload="app.init()">
+    <div class="container">
+
+        <div class="row" style="width: 50%; margin: auto;text-align: center">
+            <div class="col">
+                <form class="form-inline" style="width: 50%; margin: auto;text-align: center">
+                    <input type="text" id="cityName" placeholder="Ciudad">
+                    <button type="button" onclick="app.getWeather($('#cityName').val())" class="btn btn-primary">Buscar
+                    </button>
+                </form>
+            </div>
         </div>
-    </div>
 
-
-		<div class="row" style="margin-left: 0;margin-right: 0;">
-        <div class="col col-sm-4" >
-            <p id="city" style="text-align: center"> </p>
-            <p id="weather">Weather: </p>
-            <p id="description">Description: </p>
-            <p id="temperature">Temperature: </p>
-            <p id="max">Max Temperature: </p>
-            <p id="min">Min Temperature:  </p>
-            <p id="humidity">Humidity: </p>
-            <br>
-         
-        </div>
-        <div class="col" >
-            <div>
-                <div id="map" style="height: 600px; width: auto;"></div>
-
+        <div class="row" style="text-align: left; margin-right: 3%;border-style: none; border-radius: 25px !important; box-shadow: 0px 0px 20px -7px rgba(0,0,0,0.75)">
+            <div class="col col-sm-4">
+               
+                <p id="city" style="text-align: center"> </p>
+                <p id="weather">Weather: </p>
+                <p id="description">Description: </p>
+                <p id="temperature">Temperature: </p>
+                <p id="max">Max Temperature: </p>
+                <p id="min">Min Temperature: </p>
+                <p id="humidity">Humidity: </p>
+                <br>
             </div>
 
+            <div class="col">
+                <div>
+                    <div id="map" style="height: 600px; width: auto;"></div>
+                </div>
+
+            </div>
         </div>
     </div>
-
-
-
-</div>
-
-	</body>
+</body>
 </html>

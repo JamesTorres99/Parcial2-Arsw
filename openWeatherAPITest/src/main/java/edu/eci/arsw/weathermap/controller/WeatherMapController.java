@@ -12,13 +12,15 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 import edu.eci.arsw.weathermap.model.Ciudad;
 import edu.eci.arsw.weathermap.service.WeatherMapService;
+import edu.eci.arsw.weathermap.service.WeatherService;
 
 @RestController
-@RequestMapping("v1")
+@RequestMapping("weater")
 public class WeatherMapController {
 	
 	@Autowired
-	WeatherMapService weatherServices;
+	WeatherService weatherServices;
+
 	public WeatherMapController() {
 		// TODO Auto-generated constructor stub
 	}

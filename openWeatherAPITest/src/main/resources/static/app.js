@@ -23,6 +23,7 @@ let app = (() => {
         });
     }
 
+   
     function clearMap(){
         if (markers){
             markers.forEach(function (marker) {
@@ -51,11 +52,10 @@ let app = (() => {
         initMap();
     }
 
-    function getWeather(name){
-        apiclient.getWeatherByCity(name, mapData);
 
+    function getWeather (name){
+        Client.dameDatos(name, mapData);
     }
-
     return {
         init:init,
         getWeather:getWeather

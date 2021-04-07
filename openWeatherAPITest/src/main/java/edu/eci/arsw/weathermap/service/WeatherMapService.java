@@ -27,7 +27,8 @@ public class WeatherMapService implements WeatherService{
 	public WeatherMapService() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
+    @Override
 	public Ciudad getStatsByCity(String ciudad) throws UnirestException {
         if (weatherMapCache.get(ciudad) == null) {
             Ciudad cacheCiudad = agregarDetalles(ciudad);

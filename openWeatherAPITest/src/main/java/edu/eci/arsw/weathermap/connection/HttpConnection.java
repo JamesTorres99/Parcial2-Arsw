@@ -8,7 +8,7 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 @Service
-public class HttpConnection {
+public class HttpConnection implements Connection{
 	private String url, key;
 	
 	public HttpConnection() {
@@ -16,7 +16,7 @@ public class HttpConnection {
 		key = "cacc365971fdc4c009bca29a9d6850cb";
 	}
 	
-	
+    @Override	
 	public  JSONObject getWeather(String ciudad) throws UnirestException {
 			HttpResponse<String> response = Unirest.get(url+ "/weather?q=" + ciudad + "&appid=" + key)
                     .asString();

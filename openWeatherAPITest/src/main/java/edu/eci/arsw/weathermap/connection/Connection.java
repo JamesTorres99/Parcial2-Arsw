@@ -1,11 +1,11 @@
 package edu.eci.arsw.weathermap.connection;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
+import org.json.JSONObject;
 
-import edu.eci.arsw.weathermap.model.Ciudad;
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 public interface Connection {
 	
-	  Ciudad getWeather(String city) throws UnirestException;	
+	  JSONObject getWeather(String ciudad) throws UnirestException;	
 
 }
