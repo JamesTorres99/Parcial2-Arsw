@@ -1,109 +1,63 @@
-var app = (function () {
+let app = (() => {
 
-    class Point{
-        constructor(x,y){
-            this.x=x;
-            this.y=y;
-        }        
+    let markers = [];
+
+    function mapData(data){
+        console.log(data);
+        $("#city").empty();
+        $("#city").append("<b>"+data.name+"</b>");
+        $("#weather").text("Weather: "+data.weather.main);
+        $("#description").text("Weather Description: "+data.weather.description);
+        $("#temperature").text("Temperature: "+data.main.temp +" ºK");
+        $("#max").text("Max Temperature: "+data.main.temp_max+ "ºK");
+        $("#min").text("Min Temperature: "+data.main.temp_min+ "ºK");
+        $("#humidity").text("Humidity: "+data.main.humidity+" %");
+        plotMarkers(data.coord);
+
     }
-    
-    var stompClient = null;
-	var dibujoID = null;
-	
-	var addPointToCanvas = function (point) {        
-        var canvas = document.getElementById("canvas");
-        var ctx = canvas.getContext("2d");
-        ctx.beginPath();
-        ctx.arc(point.x, point.y, 3, 0, 2 * Math.PI);
-        ctx.stroke();
-    };
 
-	var addPolygonToCanvas = function (points) {
-		let c2 = canvas.getContext('2d');
-		let init = false;
-		
-		c2.fillStyle = '#f00';
-        c2.beginPath();
-        points.map(function (value, index ){
-			if (!init){
-				c2.moveTo(value.x,value.y);
-				init = true;
-			} else {
-				c2.lineTo(value.x,value.y);
-			} 
+    var initMap = () => {
+        map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 2,
+            center: {lat: 35.717, lng: 139.731},
         });
-		c2.closePath();
-		c2.fill();
-	};
-    
-    
-    var getMousePosition = function (evt) {
-        canvas = document.getElementById("canvas");
-        var rect = canvas.getBoundingClientRect();
-        return {
-            x: evt.clientX - rect.left,
-            y: evt.clientY - rect.top
-        };
-    };
+    }
 
+    function clearMap(){
+        if (markers){
+            markers.forEach(function (marker) {
+                marker.setMap(null);
+            })
+        }
+    }
 
-    var connectAndSubscribe = function (dibujoID) {
-        console.info('Connecting to WS...');
-        var socket = new SockJS('/stompendpoint');
-        stompClient = Stomp.over(socket);
-        
-        //subscribe to /topic/TOPICXX when connections succeed
-        stompClient.connect({}, function (frame) {
-            console.log('Connected: ' + frame);
-            stompClient.subscribe('/topic/newpoint/'+dibujoID, function (eventbody) {
-                let jsonObj = JSON.parse(eventbody.body);
-				//alert("Coordenadas recibidas: "+jsonObj.x+", "+jsonObj.y);   -> Parte 1
-				addPointToCanvas(new Point(jsonObj.x, jsonObj.y));             
-            });
-			stompClient.subscribe('/topic/newpolygon/'+dibujoID, function (eventbody){
-				addPolygonToCanvas(JSON.parse(eventbody.body));
-			});
-        });
+    function plotMarkers(data) {
+        clearMap();
+        bounds = new google.maps.LatLngBounds();
+        var position = new google.maps.LatLng(data.lat, data.lon);
+        markers.push(
+            new google.maps.Marker({
+                position: position,
+                map: map,
+                animation: google.maps.Animation.DROP
+            })
+        );
+        bounds.extend(position);
+        map.fitBounds(bounds);
+        map.setZoom(4);
+    }
 
-    };
-    
-    
+    function init() {
+        initMap();
+    }
+
+    function getWeather(name){
+        apiclient.getWeatherByCity(name, mapData);
+
+    }
 
     return {
-
-        init: function () {
-            var can = document.getElementById("canvas");
-			dibujoID = parseInt(document.getElementById("dibujoID").value);
-            if (isNaN(dibujoID)){
-				alert("El valor debe ser un número");
-			} else {
-            	//websocket connection
-				alert("conectado a dibujo #"+dibujoID);
-				can.getContext('2d').clearRect(0, 0, 800, 600);
-            	connectAndSubscribe(dibujoID);
-			}
-        },
-
-        publishPoint: function(px,py){
-			if (dibujoID == null) {
-				alert("¡Conectese a un dibujo primero!");
-			} else {
-	            var pt=new Point(px,py);
-	            console.info("publishing point at "+pt);
-	
-	            //publicar el evento
-				//stompClient.send("/topic/newpoint/"+dibujoID, {}, JSON.stringify(pt)); -> PARTE 3
-				stompClient.send("/app/newpoint/"+dibujoID, {}, JSON.stringify(pt));
-			}
-        },
-
-        disconnect: function () {
-            if (stompClient !== null) {
-                stompClient.disconnect();
-            }
-            setConnected(false);
-            console.log("Disconnected");
-        }
-    };
-
+        init:init,
+        getWeather:getWeather
+    }
 })();

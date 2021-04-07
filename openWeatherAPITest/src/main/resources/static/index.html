@@ -1,42 +1,63 @@
 <!DOCTYPE html>
-<!--
-Copyright (C) 2016 Pivotal Software, Inc.
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
--->
 <html>
     <head>
-        <title>ARSW - Laboratorio 8</title>
+        <title>Parcial</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="/webjars/jquery/jquery.min.js"></script>
+        
+		<script src="/webjars/jquery/jquery.min.js"></script>
         <script src="/webjars/sockjs-client/sockjs.min.js"></script>
         <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-        <script src="./app.js"></script>
-
+       
+		<script src="./app.js"></script>
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js?language=en"
+            type="text/javascript">
+        </script>
     </head>
 
 
     
     <body>
-		<a>Ingrese el ID del dibujo: <input type="number" id="dibujoID" placeholder="Numero del dibujo" required="true"/></a>
-		<button onclick="app.init()">Conectarse</button>
-		<br/>
-        X:<input id="x" type="number" required="true"/>
-        Y:<input id="y" type="number" required="true"/>        
-        <button onclick="app.publishPoint($('#x').val(),$('#y').val())">Send point</button>
-		<br/>
-        <canvas id="canvas" width="800" height="600"></canvas>
-    </body>
+		<div class="container">
+
+    <div class="row" style="width: 50%; margin: auto;text-align: center">
+        <div class="col" >
+            <form class="form-inline" style="width: 50%; margin: auto;text-align: center">
+                <input type="text" id="cityName" placeholder="Ciudad">
+                <button type="button" onclick="app.getWeather($('#cityName').val())"
+                        class="btn btn-primary">Buscar
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+		<div class="row" style="margin-left: 0;margin-right: 0;">
+        <div class="col col-sm-4" >
+            <p id="city" style="text-align: center"> </p>
+            <p id="weather">Weather: </p>
+            <p id="description">Description: </p>
+            <p id="temperature">Temperature: </p>
+            <p id="max">Max Temperature: </p>
+            <p id="min">Min Temperature:  </p>
+            <p id="humidity">Humidity: </p>
+            <br>
+         
+        </div>
+        <div class="col" >
+            <div>
+                <div id="map" style="height: 600px; width: auto;"></div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+</div>
+
+	</body>
 </html>
